@@ -1,0 +1,9 @@
+{
+  "name": "local-logger",
+  "version": "0.0.1",
+  "description": "My module that does not do much",
+  "main": "index.js",
+  "author": "Malkevych Bohdan",
+  "license": "MIT",
+  "repository": "git@github.com:malkevych/***************.git"
+}

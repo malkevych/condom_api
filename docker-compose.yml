@@ -35,6 +35,7 @@ services:
       - ./locales:/usr/src/app/locales
       - ./migrations:/usr/src/app/migrations
       - ./seeds:/usr/src/app/seeds
+      - ./local_modules:/usr/src/app/local_modules
       - ./src:/usr/src/app/src
       - ./tools:/usr/src/app/tools
       - ./.babelrc:/usr/src/app/.babelrc

@@ -106,6 +106,14 @@ For the full list of automation scripts available in this project, please refer 
 section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
 
 
+## Updating Local modules
+
+Bump version number in a local module you made a change and then run:
+
+```bash
+docker-compose up --build
+```
+
 ## Testing
 
 ```bash
