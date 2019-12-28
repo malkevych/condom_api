@@ -23,7 +23,9 @@ const server = app.listen(port, host, () => {
 
 // Shutdown Node.js app gracefully
 function handleExit(options, err) {
-  if (options.cleanup) {
+  const { exit = false, cleanup = false } = options;
+
+  if (cleanup) {
     const actions = [server.close, db.destroy, redis.quit];
     actions.forEach((close, i) => {
       try {
@@ -36,10 +38,11 @@ function handleExit(options, err) {
     });
   }
   if (err) errors.report(err);
-  if (options.exit) process.exit();
+  if (exit) process.exit();
 }
 
 process.on('exit', handleExit.bind(null, { cleanup: true }));
 process.on('SIGINT', handleExit.bind(null, { exit: true }));
 process.on('SIGTERM', handleExit.bind(null, { exit: true }));
+process.on('unhandledRejection', handleExit.bind(null, { exit: true }));
 process.on('uncaughtException', handleExit.bind(null, { exit: true }));

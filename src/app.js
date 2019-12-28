@@ -33,6 +33,8 @@ import schema from './schema';
 import Context from './Context';
 import errors from './errors';
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
 i18next
   .use(LanguageDetector)
   .use(i18nextBackend)
@@ -125,8 +127,8 @@ app.use(
   expressGraphQL(req => ({
     schema,
     context: new Context(req),
-    graphiql: process.env.NODE_ENV !== 'production',
-    pretty: process.env.NODE_ENV !== 'production',
+    graphiql: !IS_PRODUCTION,
+    pretty: !IS_PRODUCTION,
     formatError: (error: any) => {
       errors.report(error.originalError || error);
       return {
@@ -145,7 +147,9 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 app.use((err, req, res, next) => {
-  process.stderr.write(pe.render(err));
+  if (!IS_PRODUCTION) {
+    process.stderr.write(pe.render(err));
+  }
   next();
 });
 
