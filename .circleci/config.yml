@@ -20,7 +20,7 @@ jobs:
           command: docker-compose build --build-arg NODE_ENV=test api
       - run:
           name: "Run lint && test && && build"
-          command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build
+          command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
       - run:
           name: "Build PRODUCTION docker image"
           command: docker build --tag api:latest --tag api:$CIRCLE_BUILD_NUM --build-arg NODE_ENV=production .
