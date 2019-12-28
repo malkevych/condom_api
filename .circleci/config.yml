@@ -8,10 +8,12 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: apk add docker-cli
-      # - run:
-      #   name: "Build TEST docker image"
-      #   command: docker-compose build --build-arg NODE_ENV=test api
+      - setup_remote_docker:
+        version: 18.06.0-ce
+        docker_layer_caching: true
+
+      # - run: apk add docker-cli
+      - run: docker-compose build --build-arg NODE_ENV=test api
       # - run:
       #   name: "Run lint && test && && build"
       #   command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
