@@ -9,8 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Build TEST docker image"
-          command: docker-compose build --build-arg NODE_ENV=test api
+        name: Install Docker client
+        command: apk add docker-cli
+      - run:
+        name: "Build TEST docker image"
+        command: docker-compose build --build-arg NODE_ENV=test api
       - run:
         name: "Run lint && test && && build"
         command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
