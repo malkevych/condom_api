@@ -15,7 +15,10 @@ jobs:
       docker_layer_caching: false # Not for free plan
     steps:
       - checkout
-      - run: docker-compose build --build-arg NODE_ENV=test api
+      - run:
+          name: "Run lint && test && && build"
+          command: docker-compose build --build-arg NODE_ENV=test api
+
       # - run:
       #   name: "Run lint && test && && build"
       #   command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
