@@ -1,7 +1,6 @@
 # Javascript Node CircleCI 2.0 configuration file
 # Check https://circleci.com/docs/2.0/ for more details
 
-
 version: 2.1
 jobs:
   build:
@@ -10,23 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Testing"
-          command: echo "Hi"
-
-
-# version: 2.1
-
-# workflows:
-#   main:
-#     jobs:
-#       - build
-# jobs:
-#   build:
-#     machine:
-#       image: ubuntu-1604:201903-01
-#       docker_layer_caching: true    # default - false
-#   steps:
-#     - checkout
-#     - run: docker-compose build --build-arg NODE_ENV=test api
-#     - run: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
-#     - run: docker build --tag api:latest --tag api:$CIRCLE_BUILD_NUM --build-arg NODE_ENV=production .
+          name: "Build TEST docker image"
+          command: docker-compose build --build-arg NODE_ENV=test api
+      - run:
+        name: "Run lint && test && && build"
+        command: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
+      - run:
+        name: "Build PRODUCTION docker image"
+        command: docker build --tag api:latest --tag api:$CIRCLE_BUILD_NUM --build-arg NODE_ENV=production .
