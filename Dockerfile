@@ -12,6 +12,7 @@ WORKDIR /usr/src/app
 
 # Install Node.js dependencies
 COPY package.json yarn.lock ./
+COPY local_modules ./local_modules/
 RUN set -ex; \
   if [ "$NODE_ENV" = "production" ]; then \
   yarn install --no-cache --frozen-lockfile --production; \
@@ -31,7 +32,7 @@ COPY tools ./tools/
 COPY migrations ./migrations/
 COPY seeds ./seeds/
 COPY locales ./locales/
-COPY local_modules ./local_modules/
+
 # Attempts to copy "build" folder even if it doesn't exist
 COPY .env build* ./build/
 
