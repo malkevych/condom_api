@@ -8,9 +8,7 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run:
-        name: Install Docker client
-        command: apk add docker-cli
+      - run: apk add docker-cli
       # - run:
       #   name: "Build TEST docker image"
       #   command: docker-compose build --build-arg NODE_ENV=test api
